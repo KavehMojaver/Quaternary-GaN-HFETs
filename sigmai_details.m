@@ -1,14 +1,16 @@
-sigmai_details.m is a MATLAB function which calculates sigmai,P_SP_tot,P_PE_tot,aAlInGaN,Eg_AlInGaN,and del_E_C based on AL and In mole fractions.
-It also gives different options for the bowing parameters used for calculation of AlInGaN bandgap as discussed in:
+%%%%%% About this code
+% sigmai_details.m is a MATLAB function which calculates  two dimensional charge density (sigmai), spontaneus polarization (P_SP_tot), piezo-electric polarization (P_PE_tot),
+% lattice constant (aAlInGaN), bandgap (Eg_AlInGaN),and conduction band discontinuty (del_E_C) based on AL and In mole fractions.
+% This code also gives different options for choosing the bowing parameters used for calculation of AlInGaN bandgap as discussed in [1].
 
-H. R. Mojaver, F. Manouchehri, and P. Valizadeh, 
-“Theoretical evaluation of two dimensional electron gas characteristics of quaternary AlxInyGa1-x-yN/GaN hetero-junctions,” 
-J. Appl. Phys., vol. 119, no. 15, pp. 154502-1–154502-7, Apr. 2016.
+% [1] H. R. Mojaver, F. Manouchehri, and P. Valizadeh, “Theoretical evaluation of two dimensional electron gas characteristics of quaternary AlxInyGa1-x-yN/GaN hetero-junctions,” J. Appl. Phys., vol. 119, no. 15, pp. 154502-1–154502-7, Apr. 2016.
+%%%%%%%
 
 function [sigmai,P_SP_tot,P_PE_tot,aAlInGaN,Eg_AlInGaN,del_E_C] = sigmai_details(X,Y)
 
 %Constants
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 K = 1.38e-23;                                                              %J/K
 T = 300;
 h = 6.625e-34;                                                             %Js
@@ -30,7 +32,7 @@ aAlInGaN = X*aAlN + Y*aInN + Z*aGaN;
 %BandGap
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%Ref 21 of Kaveh's paper (JAP 119,154502 (2016))
+%Ref 21 of [1]
  Eg_GaN = 3.45;
  Eg_AlN = 6.21;
  Eg_InN = 0.68;
@@ -39,7 +41,7 @@ aAlInGaN = X*aAlN + Y*aInN + Z*aGaN;
  b_AlInN=6.43/(1+1.21*X^2);
  Eg_AlInGaN = X*Eg_AlN + Y*Eg_InN +(1-X-Y)*Eg_GaN -b_AlGaN*X*(1-X)-b_InGaN*Y*(1-Y)-(b_AlInN-b_AlGaN-b_InGaN)*X*Y;
  
-% %Ref 22 of Kaveh's paper (JAP 119,154502 (2016))
+% %Ref 22 of [1]
 % b_AlGaN=1.4;
 % b_InGaN=1.37;
 % b_InAlN=2.914;
@@ -47,7 +49,7 @@ aAlInGaN = X*aAlN + Y*aInN + Z*aGaN;
 % Eg_AlInGaN= X*Eg_AlN+(1-X-Y)*Eg_GaN+Y*Eg_InN-b_InGaN*(1-X-Y)*(X+Y)-b_InAlN*X*(1-X)-b_AlGaN*X*(1-X-Y)+(b_InGaN+b_InAlN)*X*(1-X-Y)-C*X*(1-X-Y)*Y;
 
 % % 
-% %Ref 23 of Kaveh's paper (JAP 119,154502 (2016))
+% %Ref 23 of [1]
 % b_InAlN=3.7;
 % b_InGaN=1.4;
 % b_GaAlN=0.71;
